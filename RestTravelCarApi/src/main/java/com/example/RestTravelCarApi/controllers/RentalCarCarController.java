@@ -2,6 +2,8 @@ package com.example.RestTravelCarApi.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.RestTravelCarApi.models.*;
+import com.example.RestTravelCarApi.models.DTO.RentalDTO;
+import com.example.RestTravelCarApi.models.Entity.Rental;
 import com.example.RestTravelCarApi.service.*;
 import java.util.List;
 @RestController

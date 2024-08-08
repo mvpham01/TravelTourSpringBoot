@@ -7,28 +7,32 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.RestTravelCarApi.models.CategoryTour;
-import com.example.RestTravelCarApi.models.CategoryTourDTO;
-import com.example.RestTravelCarApi.models.DepartureDateDTO;
-import com.example.RestTravelCarApi.models.Itinerary;
-import com.example.RestTravelCarApi.models.ItineraryDTO;
-import com.example.RestTravelCarApi.models.ThemeTour;
-import com.example.RestTravelCarApi.models.ThemeTourDTO;
-import com.example.RestTravelCarApi.models.TourCategoryTour;
-import com.example.RestTravelCarApi.models.TourCategoryTourDTO;
-import com.example.RestTravelCarApi.models.TourDepartureDate;
-import com.example.RestTravelCarApi.models.TourDepartureDateDTO;
-import com.example.RestTravelCarApi.models.TourPackage;
-import com.example.RestTravelCarApi.models.TourPackageDTO;
-import com.example.RestTravelCarApi.models.TourResponse;
-import com.example.RestTravelCarApi.models.TourSuitableTour;
-import com.example.RestTravelCarApi.models.TourThemeTour;
-import com.example.RestTravelCarApi.models.TourThemeTourDTO;
+import com.example.RestTravelCarApi.models.DTO.CategoryTourDTO;
+import com.example.RestTravelCarApi.models.DTO.DepartureDateDetailDTO;
+import com.example.RestTravelCarApi.models.DTO.ItineraryDTO;
+import com.example.RestTravelCarApi.models.DTO.SuitableTourDTO;
+import com.example.RestTravelCarApi.models.DTO.TourCategoryTourDTO;
+import com.example.RestTravelCarApi.models.DTO.TourDepartureDateDTO;
+import com.example.RestTravelCarApi.models.DTO.TourPackageDetailDTO;
+import com.example.RestTravelCarApi.models.DTO.TourSuitableTourDTO;
+import com.example.RestTravelCarApi.models.DTO.ThemeTourDTO;
+import com.example.RestTravelCarApi.models.DTO.ThemeTourDetailDTO;
+import com.example.RestTravelCarApi.models.Entity.CategoryTour;
+import com.example.RestTravelCarApi.models.Entity.Itinerary;
+import com.example.RestTravelCarApi.models.Entity.ThemeTour;
+import com.example.RestTravelCarApi.models.Entity.TourCategoryTour;
+import com.example.RestTravelCarApi.models.Entity.TourDepartureDate;
+import com.example.RestTravelCarApi.models.Entity.TourPackage;
+// import com.example.RestTravelCarApi.models.Entity.TourResponse;
+import com.example.RestTravelCarApi.models.Entity.TourSuitableTour;
+import com.example.RestTravelCarApi.models.Entity.TourThemeTour;
 import com.example.RestTravelCarApi.repository.TourCategoryTourRepository;
 import com.example.RestTravelCarApi.repository.TourDepartureDateRepository;
 import com.example.RestTravelCarApi.repository.TourPackageRepository;
 import com.example.RestTravelCarApi.repository.TourSuitableTourRepository;
 import com.example.RestTravelCarApi.repository.TourThemeTourRepository;
+import com.example.RestTravelCarApi.repository.TourCategoryTourRepository;
+import com.example.RestTravelCarApi.repository.TourPackageRepository;
 
 @Service
 public class PackTourService {
@@ -50,35 +54,110 @@ public class PackTourService {
     public List<TourPackage> getAllTourPackages() {
         return tourPackageRepository.findAll();
     }
+
+    // public TourPackage getTourPackageByPackageid(int packageid) {
+    // return tourPackageRepository.findByPackageid(packageid);
+    // }
     public List<TourCategoryTour> getAllTourPackagesCategory() {
         return tourCategoryTourRepository.findAll();
     }
+
     public List<TourThemeTour> getAllTourPackagesTheme() {
         return tourThemeTourRepository.findAll();
     }
+
     public List<TourDepartureDate> getAllTourPackagesDepartureDate() {
         return tourDepartureDateRepository.findAll();
     }
+
     public List<TourSuitableTour> getAllTourPackagesSuitable() {
         return tourSuitableTourRepository.findAll();
     }
-    // public TourResponse getTourResponse(int packageId) {
-    //     List<TourCategoryTour> categoryTours = tourCategoryTourRepository.findByPackageId(packageId);
-    //     List<CategoryTourDTO> categoryTourDTOs = categoryTours.stream()
-    //         .map(t -> new CategoryTourDTO(t.getCategoryTour()))
-    //         .collect(Collectors.toList());
 
-    //     List<TourThemeTour> themeTours = tourThemeTourRepository.findByPackageId(packageId);
-    //     List<ThemeTourDTO> themeTourDTOs = themeTours.stream()
-    //         .map(t -> new ThemeTourDTO(t.getThemeTour()))
-    //         .collect(Collectors.toList());
+    public TourPackageDetailDTO getTourPackageByPackageid(int packageid) {
+        TourPackage tourPackage = tourPackageRepository.findByPackageid(packageid);
 
-    //     List<TourDepartureDate> departureDates = tourDepartureDateRepository.findByPackageId(packageId);
-    //     List<DepartureDateDTO> departureDateDTOs = departureDates.stream()
-    //         .map(t -> new DepartureDateDTO(t.getDepartureDate()))
-    //         .collect(Collectors.toList());
+        List<ItineraryDTO> itineraries = tourPackage.getItineraries().stream()
+                .map(itinerary -> {
+                    ItineraryDTO dto = new ItineraryDTO();
+                    dto.setItineraryId(itinerary.getItineraryId());
+                    dto.setDay(itinerary.getDay());
+                    return dto;
+                }).collect(Collectors.toList());
 
-    //     return new TourResponse(categoryTourDTOs, themeTourDTOs, departureDateDTOs);
-    // }
+        List<TourCategoryTourDTO> categoryTours = tourCategoryTourRepository.findByPackageid(packageid).stream()
+                .map(tourCategoryTour -> {
+                    TourCategoryTourDTO dto = new TourCategoryTourDTO();
+                    dto.setTourCategoryTourId(tourCategoryTour.getTourCategoryTourId());
+                    dto.setPackageid(tourCategoryTour.getPackageid());
+
+                    CategoryTourDTO categoryTourDTO = new CategoryTourDTO();
+                    categoryTourDTO.setCategoryTourId(tourCategoryTour.getCategoryTour().getCategoryTourId());
+                    categoryTourDTO.setCategoryTourName(tourCategoryTour.getCategoryTour().getCategoryTourName());
+
+                    dto.setCategoryTour(categoryTourDTO);
+                    return dto;
+                }).collect(Collectors.toList());
+
+        List<ThemeTourDTO> themeTours = tourThemeTourRepository.findByPackageid(packageid).stream()
+                .map(tourThemeTour -> {
+                    ThemeTourDTO dto = new ThemeTourDTO();
+                    dto.setTourThemeTourId(tourThemeTour.getTourThemeTourId());
+                    dto.setPackageid(tourThemeTour.getPackageid());
+
+                    ThemeTourDetailDTO themeTourDTO = new ThemeTourDetailDTO();
+                    themeTourDTO.setThemeTourId(tourThemeTour.getThemeTour().getThemeTourId());
+                    themeTourDTO.setThemeTourName(tourThemeTour.getThemeTour().getThemeTourName());
+
+                    dto.setThemeTour(themeTourDTO);
+                    return dto;
+                }).collect(Collectors.toList());
+
+        List<TourDepartureDateDTO> departureDates = tourDepartureDateRepository.findByPackageid(packageid).stream()
+                .map(tourDepartureDate -> {
+                    TourDepartureDateDTO dto = new TourDepartureDateDTO();
+                    dto.setTourDepartureDateId(tourDepartureDate.getTourdeparturedateid());
+                    dto.setPackageid(tourDepartureDate.getPackageid());
+
+                    DepartureDateDetailDTO departureDateDTO = new DepartureDateDetailDTO();
+                    departureDateDTO.setDepartureDateId(tourDepartureDate.getDepartureDate().getDeparturedateid());
+                    departureDateDTO.setDeparture_date(tourDepartureDate.getDepartureDate().getDeparture_date());
+                    departureDateDTO.setDeparture_from(tourDepartureDate.getDepartureDate().getDeparture_from());
+                    departureDateDTO.setDeparture_to(tourDepartureDate.getDepartureDate().getDeparture_to());
+
+                    dto.setDepartureDate(departureDateDTO);
+                    return dto;
+                }).collect(Collectors.toList());
+                List<TourSuitableTourDTO> suitableTours = tourSuitableTourRepository.findByPackageid(packageid).stream()
+                .map(tourSuitableTour -> {
+                    TourSuitableTourDTO dto = new TourSuitableTourDTO();
+                    dto.setToursuitabletourid(tourSuitableTour.getToursuitabletourid());
+                    dto.setPackageid(tourSuitableTour.getPackageid());
+            
+                    SuitableTourDTO suitableTourDTO = new SuitableTourDTO();
+                    suitableTourDTO.setSuitabletourid(tourSuitableTour.getSuitabletourid().getSuitabletourid());
+                    suitableTourDTO.setSuitablename(tourSuitableTour.getSuitabletourid().getSuitablename());
+            
+                    dto.setSuitableTour(suitableTourDTO);
+                    return dto;
+                })
+                .collect(Collectors.toList());
+        TourPackageDetailDTO dto = new TourPackageDetailDTO();
+        dto.setPackageid(tourPackage.getPackageid());
+        dto.setTitle(tourPackage.getTitle());
+        dto.setThumbnail(tourPackage.getThumbnail());
+        dto.setPrice(tourPackage.getPrice());
+        dto.setPricereduce(tourPackage.getPricereduce());
+        dto.setGroupsize(tourPackage.getGroupsize());
+        dto.setDeposit(tourPackage.getDeposit());
+        dto.setBookinghold(tourPackage.getBookinghold());
+        dto.setBookingchange(tourPackage.getBookingchange());
+        dto.setItineraries(itineraries);
+        dto.setCategoryTours(categoryTours);
+        dto.setThemeTours(themeTours);
+        dto.setDepartureDates(departureDates);
+        dto.setSuitableTours(suitableTours);        
+        return dto;
+    }
 
 }

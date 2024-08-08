@@ -3,6 +3,11 @@ package com.example.RestTravelCarApi.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.RestTravelCarApi.models.*;
+import com.example.RestTravelCarApi.models.DTO.CarDTO;
+import com.example.RestTravelCarApi.models.Entity.Car;
+import com.example.RestTravelCarApi.models.Entity.Make;
+import com.example.RestTravelCarApi.models.Entity.Model;
+import com.example.RestTravelCarApi.models.Entity.Type;
 import com.example.RestTravelCarApi.service.*;
 import java.util.List;
 

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.RestTravelCarApi.models.ApiResponse;
+import com.example.RestTravelCarApi.models.DTO.ApiResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

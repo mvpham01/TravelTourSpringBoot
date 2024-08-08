@@ -9,5 +9,4 @@ public class RestTravelCarApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RestTravelCarApiApplication.class, args);
 	}
-
 }

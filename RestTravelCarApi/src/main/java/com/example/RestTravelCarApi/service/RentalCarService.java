@@ -4,6 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.RestTravelCarApi.repository.*;
 import com.example.RestTravelCarApi.models.*;
+import com.example.RestTravelCarApi.models.DTO.RentalDTO;
+import com.example.RestTravelCarApi.models.Entity.Car;
+import com.example.RestTravelCarApi.models.Entity.Payment;
+import com.example.RestTravelCarApi.models.Entity.Rental;
+import com.example.RestTravelCarApi.models.Entity.User;
+
 import java.util.List;
 
 @Service
