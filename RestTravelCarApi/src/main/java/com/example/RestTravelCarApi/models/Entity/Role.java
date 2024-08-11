@@ -1,6 +1,8 @@
 package com.example.RestTravelCarApi.models.Entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,30 +12,32 @@ import jakarta.persistence.OneToMany;
 import java.util.Set;
 
 @Entity
-@Table(name = "Roles")
+@Table(name = "roles")
 public class Role {
 
     @Id
     @Column(name = "roleid")
-    private Long roleId;
-
+    private Long roleid;
+     @Enumerated(EnumType.STRING)
     @Column(name = "rolename")
-    private String roleName;
+     private ERole roleName;
+
+     public ERole getRoleName() {
+         return this.roleName;
+     }
+
+     public void setRoleName(ERole roleName) {
+         this.roleName = roleName;
+     }
 
     // Getters and Setters
     public Long getRoleId() {
-        return roleId;
+        return roleid;
     }
 
     public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+        this.roleid = roleId;
     }
 
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
+    
 }

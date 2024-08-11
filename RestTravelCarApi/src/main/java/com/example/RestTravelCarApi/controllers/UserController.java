@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.RestTravelCarApi.models. *;
+
 import com.example.RestTravelCarApi.models.DTO.ApiResponse;
 import com.example.RestTravelCarApi.models.Entity.User;
 import com.example.RestTravelCarApi.service.*;

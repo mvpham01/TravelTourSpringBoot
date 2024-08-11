@@ -1,12 +1,25 @@
 package com.example.RestTravelCarApi.models.DTO;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class ItineraryDTO {
 
+    
     private int itineraryId;
-    private int packageId; // Reference to the TourPackage
+    private List<ActivityDTO> activities;
     private Timestamp day;
+   
+
+    public List<ActivityDTO> getActivities() {
+        return this.activities;
+    }
+
+    public void setActivities(List<ActivityDTO> activities) {
+        this.activities = activities;
+    }
+
+   
 
     // Getters and setters
     public int getItineraryId() {
@@ -17,14 +30,7 @@ public class ItineraryDTO {
         this.itineraryId = itineraryId;
     }
 
-    public int getPackageId() {
-        return packageId;
-    }
-
-    public void setPackageId(int packageId) {
-        this.packageId = packageId;
-    }
-
+  
     public Timestamp getDay() {
         return day;
     }

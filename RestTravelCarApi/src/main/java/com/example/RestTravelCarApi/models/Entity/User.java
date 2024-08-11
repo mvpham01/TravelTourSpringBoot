@@ -1,15 +1,18 @@
 package com.example.RestTravelCarApi.models.Entity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.OneToMany;
 import java.util.Set;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -102,5 +105,28 @@ public class User {
         this.address = address;
     }
 
-    // Constructors, getters, setters, etc.
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "roleid", referencedColumnName = "roleid")
+    private Role roles;
+
+    public Role getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(Role roles) {
+        this.roles = roles;
+    }
+    public User() {
+    }
+    public User(String username, String email, String password, String firstname, String lastname, String phone, String address) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    
 }

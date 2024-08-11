@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.RestTravelCarApi.models.DTO.ActivityDTO;
 import com.example.RestTravelCarApi.models.DTO.CategoryTourDTO;
 import com.example.RestTravelCarApi.models.DTO.DepartureDateDetailDTO;
 import com.example.RestTravelCarApi.models.DTO.ItineraryDTO;
@@ -54,7 +55,6 @@ public class PackTourService {
     public List<TourPackage> getAllTourPackages() {
         return tourPackageRepository.findAll();
     }
-
     // public TourPackage getTourPackageByPackageid(int packageid) {
     // return tourPackageRepository.findByPackageid(packageid);
     // }
@@ -82,6 +82,19 @@ public class PackTourService {
                     ItineraryDTO dto = new ItineraryDTO();
                     dto.setItineraryId(itinerary.getItineraryId());
                     dto.setDay(itinerary.getDay());
+                    List<ActivityDTO> activityDTOs = itinerary.getActivities().stream()
+                            .map(activity -> {
+                                ActivityDTO dto1 = new ActivityDTO();
+                                dto1.setActivityid(activity.getActivityid());
+                                dto1.setActivityname(activity.getActivityname());
+                                dto1.setDescription(activity.getDescription());
+                                dto1.setTimeperiod(activity.getTimeperiod());
+                                dto1.setThumbnail(activity.getThumbnail());
+                                dto1.setActivityType(activity.getActivitytype());
+                                return dto1;
+                            }).collect(Collectors.toList());
+
+                    dto.setActivities(activityDTOs);
                     return dto;
                 }).collect(Collectors.toList());
 
@@ -128,16 +141,16 @@ public class PackTourService {
                     dto.setDepartureDate(departureDateDTO);
                     return dto;
                 }).collect(Collectors.toList());
-                List<TourSuitableTourDTO> suitableTours = tourSuitableTourRepository.findByPackageid(packageid).stream()
+        List<TourSuitableTourDTO> suitableTours = tourSuitableTourRepository.findByPackageid(packageid).stream()
                 .map(tourSuitableTour -> {
                     TourSuitableTourDTO dto = new TourSuitableTourDTO();
                     dto.setToursuitabletourid(tourSuitableTour.getToursuitabletourid());
                     dto.setPackageid(tourSuitableTour.getPackageid());
-            
+
                     SuitableTourDTO suitableTourDTO = new SuitableTourDTO();
                     suitableTourDTO.setSuitabletourid(tourSuitableTour.getSuitabletourid().getSuitabletourid());
                     suitableTourDTO.setSuitablename(tourSuitableTour.getSuitabletourid().getSuitablename());
-            
+
                     dto.setSuitableTour(suitableTourDTO);
                     return dto;
                 })
@@ -156,7 +169,7 @@ public class PackTourService {
         dto.setCategoryTours(categoryTours);
         dto.setThemeTours(themeTours);
         dto.setDepartureDates(departureDates);
-        dto.setSuitableTours(suitableTours);        
+        dto.setSuitableTours(suitableTours);
         return dto;
     }
 

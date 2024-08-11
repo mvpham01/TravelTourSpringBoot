@@ -3,7 +3,7 @@ package com.example.RestTravelCarApi.models.Entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ActivityType")
+@Table(name = "activitytype")
 public class ActivityType {
 
     @Id

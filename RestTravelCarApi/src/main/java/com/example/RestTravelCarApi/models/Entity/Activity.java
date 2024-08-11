@@ -1,9 +1,11 @@
 package com.example.RestTravelCarApi.models.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Activity")
+@Table(name = "activity")
 public class Activity {
 
     @Id
@@ -18,29 +20,29 @@ public class Activity {
     public void setActivityid(int activityid) {
         this.activityid = activityid;
     }
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itineraryid", referencedColumnName = "itineraryid")
-    private Itinerary itineraryid;
+    @JsonIgnore
+    private Itinerary itinerary;
 
-    public Itinerary getItineraryid() {
-        return this.itineraryid;
+    public Itinerary getItinerary() {
+        return this.itinerary;
     }
 
-    public void setItineraryid(Itinerary itineraryid) {
-        this.itineraryid = itineraryid;
+    public void setItinerary(Itinerary itineraryid) {
+        this.itinerary = itineraryid;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "activitytypeid", referencedColumnName = "activitytypeid")
-    private ActivityType activitytypeid;
+    private ActivityType activitytype;
 
-    public ActivityType getActivitytypeid() {
-        return this.activitytypeid;
+    public ActivityType getActivitytype() {
+        return this.activitytype;
     }
 
-    public void setActivitytypeid(ActivityType activitytypeid) {
-        this.activitytypeid = activitytypeid;
+    public void setActivitytype(ActivityType activitytypeid) {
+        this.activitytype = activitytypeid;
     }
 
     @Column(name = "activityname")

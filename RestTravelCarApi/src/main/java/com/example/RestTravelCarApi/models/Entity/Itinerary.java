@@ -1,6 +1,7 @@
 package com.example.RestTravelCarApi.models.Entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,6 +20,17 @@ public class Itinerary {
     @JoinColumn(name = "packageid", referencedColumnName = "packageid")
     @JsonIgnore
     private TourPackage tourPackage;
+
+    @OneToMany(mappedBy = "itinerary", fetch = FetchType.LAZY)
+    private List<Activity> activities;
+
+    public List<Activity> getActivities() {
+        return this.activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
 
     @Column(name = "day")
     private Timestamp day;
