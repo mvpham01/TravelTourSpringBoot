@@ -30,7 +30,7 @@ public class TourSuitableTour {
         this.packageid = packageid;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "suitabletourid", referencedColumnName = "suitabletourid")
     private SuitableTour suitabletourid;
 

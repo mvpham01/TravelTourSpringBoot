@@ -9,25 +9,27 @@ public class SuitableTour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "suitabletourid")
-    private int suitabletourid;
-
-    public int getSuitabletourid() {
-        return this.suitabletourid;
-    }
-
-    public void setSuitabletourid(int suitabletourid) {
-        this.suitabletourid = suitabletourid;
-    }
+    private int suitableTourId;
 
     @Column(name = "suitablename")
-    private String suitablename;
+    private String suitableName;
 
-    public String getSuitablename() {
-        return this.suitablename;
+    // Getters and setters
+
+    public int getSuitableTourId() {
+        return suitableTourId;
     }
 
-    public void setSuitablename(String suitablename) {
-        this.suitablename = suitablename;
+    public void setSuitableTourId(int suitableTourId) {
+        this.suitableTourId = suitableTourId;
+    }
+
+    public String getSuitableName() {
+        return suitableName;
+    }
+
+    public void setSuitableName(String suitableName) {
+        this.suitableName = suitableName;
     }
 
 }

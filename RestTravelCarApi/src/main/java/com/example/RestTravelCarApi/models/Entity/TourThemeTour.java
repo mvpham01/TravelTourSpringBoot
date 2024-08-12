@@ -21,7 +21,7 @@ public class TourThemeTour {
     public void setPackageid(int packageid) {
         this.packageid = packageid;
     }
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "themetourid", referencedColumnName = "themetourid")
     private ThemeTour themeTour;
 

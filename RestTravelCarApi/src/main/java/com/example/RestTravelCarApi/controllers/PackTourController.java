@@ -3,11 +3,14 @@ package com.example.RestTravelCarApi.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.RestTravelCarApi.models.DTO.TourPackageDetailDTO;
 import com.example.RestTravelCarApi.models.Entity.TourCategoryTour;
@@ -27,7 +30,7 @@ public class PackTourController {
     }
 
     @GetMapping("/{packageid}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public TourPackageDetailDTO getToursByPackageId(@PathVariable int packageid) {
         return packTourService.getTourPackageByPackageid(packageid);
     }
@@ -35,6 +38,20 @@ public class PackTourController {
     @GetMapping("/category")
     public List<TourCategoryTour> getAllTourPackagesCategory() {
         return packTourService.getAllTourPackagesCategory();
+    }
+    @GetMapping("/category/{categoryTourName}")
+    public List<TourPackage> getToursByCategory(@PathVariable String categoryTourName) {
+        return  packTourService.getAllTourPackagesByCategory(categoryTourName);
+    }
+
+     @GetMapping("/theme/{themeTourName}")
+    public List<TourPackage> getToursByThemeTourName(@RequestParam String themeTourName) {
+        return packTourService.getToursByThemeTourName(themeTourName);
+    }
+
+    @GetMapping("/theme/{suitableName}")
+    public List<TourPackage> getToursBySuitableName(@RequestParam String suitableName) {
+        return packTourService.getToursBySuitableName(suitableName);
     }
     // @GetMapping("/category/{packageid}")
     // public List<TourCategoryTourDTO> getToursCatByPackageId(@PathVariable int

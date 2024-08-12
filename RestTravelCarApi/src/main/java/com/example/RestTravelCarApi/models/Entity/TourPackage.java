@@ -8,27 +8,21 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "tourpackage")
 public class TourPackage {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "packageid")
     private int packageid;
-
     public int getPackageid() {
         return this.packageid;
     }
-
     public void setPackageid(int packageid) {
         this.packageid = packageid;
     }
-
     @Column(name = "title")
     private String title;
-
     public String getTitle() {
         return this.title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -119,37 +113,68 @@ public class TourPackage {
     public void setItineraries(List<Itinerary> itineraries) {
         this.itineraries = itineraries;
     }
+    @ManyToMany
+    @JoinTable(
+        name = "tourcategorytour",
+        joinColumns = @JoinColumn(name = "packageid"),
+        inverseJoinColumns = @JoinColumn(name = "categorytourid")
+    )
+    private List<CategoryTour> categoryTours;
 
-    // @ManyToMany
-    // @JoinTable(
-    //     name = "tourcategorytour",
-    //     joinColumns = @JoinColumn(name = "packageid"),
-    //     inverseJoinColumns = @JoinColumn(name = "categorytourid")
-    // )
-    // private List<CategoryTour> categoryTours;
+    public List<CategoryTour> getCategoryTours() {
+        return this.categoryTours;
+    }
 
-    // public List<CategoryTour> getCategoryTours() {
-    //     return this.categoryTours;
-    // }
+    public void setCategoryTours(List<CategoryTour> categoryTours) {
+        this.categoryTours = categoryTours;
+    }
 
-    // public void setCategoryTours(List<CategoryTour> categoryTours) {
-    //     this.categoryTours = categoryTours;
-    // }
+    @ManyToMany
+    @JoinTable(
+        name = "tourthemetour",
+        joinColumns = @JoinColumn(name = "packageid"),
+        inverseJoinColumns = @JoinColumn(name = "themetourid")
+    )
+    private List<ThemeTour> themeTours;
 
-    // @ManyToMany
-    // @JoinTable(
-    //     name = "tourthemetour",
-    //     joinColumns = @JoinColumn(name = "packageid"),
-    //     inverseJoinColumns = @JoinColumn(name = "themetourid")
-    // )
-    // private List<ThemeTour> themeTours;
+    public List<ThemeTour> getThemeTours() {
+        return this.themeTours;
+    }
 
-    // public List<ThemeTour> getThemeTours() {
-    //     return this.themeTours;
-    // }
+    public void setThemeTours(List<ThemeTour> themeTours) {
+        this.themeTours = themeTours;
+    }
 
-    // public void setThemeTours(List<ThemeTour> themeTours) {
-    //     this.themeTours = themeTours;
-    // }
+    @ManyToMany
+    @JoinTable(
+        name = "toursuitabletour",
+        joinColumns = @JoinColumn(name = "packageid"),
+        inverseJoinColumns = @JoinColumn(name = "suitabletourid")
+    )
+    private List<SuitableTour> suitableTours;
+
+    public List<SuitableTour> getSuitableTours() {
+        return this.suitableTours;
+    }
+
+    public void setSuitableTours(List<SuitableTour> suitableTours) {
+        this.suitableTours = suitableTours;
+    }
+    @ManyToMany
+    @JoinTable(
+        name = "tourdeparturedate",
+        joinColumns = @JoinColumn(name = "packageid"),
+        inverseJoinColumns = @JoinColumn(name = "departuredateid")
+    )
+    private List<DepartureDate> departureDates;
+
+    public List<DepartureDate> getDepartureDate() {
+        return this.departureDates;
+    }
+
+    public void setDepartureDate(List<DepartureDate> departureDate) {
+        this.departureDates = departureDate;
+    }
+
 }
 

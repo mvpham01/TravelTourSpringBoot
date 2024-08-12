@@ -30,7 +30,7 @@ public class TourDepartureDate {
         this.packageid = packageid;
     }
 
-@ManyToOne(fetch = FetchType.LAZY)
+@ManyToOne(fetch = FetchType.EAGER)
 @JoinColumn(name = "departuredateid", referencedColumnName = "departuredateid")
 private DepartureDate departureDate;
 

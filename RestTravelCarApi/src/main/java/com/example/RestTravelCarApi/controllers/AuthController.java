@@ -112,12 +112,16 @@ public class AuthController {
         } else {
             // Gán vai trò dựa trên yêu cầu
             switch (strRoles.iterator().next()) { // Lấy phần tử đầu tiên của Set
-                case "admin":
-                    role = roleRepository.findByRoleName(ERole.ROLE_ADMIN)
+                case "business":
+                    role = roleRepository.findByRoleName(ERole.ROLE_BUSINESS)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     break;
                 case "mod":
                     role = roleRepository.findByRoleName(ERole.ROLE_MODERATOR)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    break;
+                case "employee":
+                    role = roleRepository.findByRoleName(ERole.ROLE_EMPLOYEE)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     break;
                 default:

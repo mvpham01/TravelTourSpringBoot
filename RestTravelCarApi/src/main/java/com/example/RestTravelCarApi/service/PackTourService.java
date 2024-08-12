@@ -55,15 +55,18 @@ public class PackTourService {
     public List<TourPackage> getAllTourPackages() {
         return tourPackageRepository.findAll();
     }
-    // public TourPackage getTourPackageByPackageid(int packageid) {
-    // return tourPackageRepository.findByPackageid(packageid);
-    // }
+    
     public List<TourCategoryTour> getAllTourPackagesCategory() {
         return tourCategoryTourRepository.findAll();
     }
-
+    public List<TourPackage> getAllTourPackagesByCategory(String cat) {
+        return tourPackageRepository.findByCategoryTourName(cat);
+    }
     public List<TourThemeTour> getAllTourPackagesTheme() {
         return tourThemeTourRepository.findAll();
+    }
+    public List<TourPackage> getToursByThemeTourName(String themeTourName) {
+        return tourPackageRepository.findByThemeTourName(themeTourName);
     }
 
     public List<TourDepartureDate> getAllTourPackagesDepartureDate() {
@@ -73,10 +76,11 @@ public class PackTourService {
     public List<TourSuitableTour> getAllTourPackagesSuitable() {
         return tourSuitableTourRepository.findAll();
     }
-
+public List<TourPackage> getToursBySuitableName(String suitableName) {
+        return tourPackageRepository.findBySuitableName(suitableName);
+    }
     public TourPackageDetailDTO getTourPackageByPackageid(int packageid) {
         TourPackage tourPackage = tourPackageRepository.findByPackageid(packageid);
-
         List<ItineraryDTO> itineraries = tourPackage.getItineraries().stream()
                 .map(itinerary -> {
                     ItineraryDTO dto = new ItineraryDTO();
@@ -97,64 +101,6 @@ public class PackTourService {
                     dto.setActivities(activityDTOs);
                     return dto;
                 }).collect(Collectors.toList());
-
-        List<TourCategoryTourDTO> categoryTours = tourCategoryTourRepository.findByPackageid(packageid).stream()
-                .map(tourCategoryTour -> {
-                    TourCategoryTourDTO dto = new TourCategoryTourDTO();
-                    dto.setTourCategoryTourId(tourCategoryTour.getTourCategoryTourId());
-                    dto.setPackageid(tourCategoryTour.getPackageid());
-
-                    CategoryTourDTO categoryTourDTO = new CategoryTourDTO();
-                    categoryTourDTO.setCategoryTourId(tourCategoryTour.getCategoryTour().getCategoryTourId());
-                    categoryTourDTO.setCategoryTourName(tourCategoryTour.getCategoryTour().getCategoryTourName());
-
-                    dto.setCategoryTour(categoryTourDTO);
-                    return dto;
-                }).collect(Collectors.toList());
-
-        List<ThemeTourDTO> themeTours = tourThemeTourRepository.findByPackageid(packageid).stream()
-                .map(tourThemeTour -> {
-                    ThemeTourDTO dto = new ThemeTourDTO();
-                    dto.setTourThemeTourId(tourThemeTour.getTourThemeTourId());
-                    dto.setPackageid(tourThemeTour.getPackageid());
-
-                    ThemeTourDetailDTO themeTourDTO = new ThemeTourDetailDTO();
-                    themeTourDTO.setThemeTourId(tourThemeTour.getThemeTour().getThemeTourId());
-                    themeTourDTO.setThemeTourName(tourThemeTour.getThemeTour().getThemeTourName());
-
-                    dto.setThemeTour(themeTourDTO);
-                    return dto;
-                }).collect(Collectors.toList());
-
-        List<TourDepartureDateDTO> departureDates = tourDepartureDateRepository.findByPackageid(packageid).stream()
-                .map(tourDepartureDate -> {
-                    TourDepartureDateDTO dto = new TourDepartureDateDTO();
-                    dto.setTourDepartureDateId(tourDepartureDate.getTourdeparturedateid());
-                    dto.setPackageid(tourDepartureDate.getPackageid());
-
-                    DepartureDateDetailDTO departureDateDTO = new DepartureDateDetailDTO();
-                    departureDateDTO.setDepartureDateId(tourDepartureDate.getDepartureDate().getDeparturedateid());
-                    departureDateDTO.setDeparture_date(tourDepartureDate.getDepartureDate().getDeparture_date());
-                    departureDateDTO.setDeparture_from(tourDepartureDate.getDepartureDate().getDeparture_from());
-                    departureDateDTO.setDeparture_to(tourDepartureDate.getDepartureDate().getDeparture_to());
-
-                    dto.setDepartureDate(departureDateDTO);
-                    return dto;
-                }).collect(Collectors.toList());
-        List<TourSuitableTourDTO> suitableTours = tourSuitableTourRepository.findByPackageid(packageid).stream()
-                .map(tourSuitableTour -> {
-                    TourSuitableTourDTO dto = new TourSuitableTourDTO();
-                    dto.setToursuitabletourid(tourSuitableTour.getToursuitabletourid());
-                    dto.setPackageid(tourSuitableTour.getPackageid());
-
-                    SuitableTourDTO suitableTourDTO = new SuitableTourDTO();
-                    suitableTourDTO.setSuitabletourid(tourSuitableTour.getSuitabletourid().getSuitabletourid());
-                    suitableTourDTO.setSuitablename(tourSuitableTour.getSuitabletourid().getSuitablename());
-
-                    dto.setSuitableTour(suitableTourDTO);
-                    return dto;
-                })
-                .collect(Collectors.toList());
         TourPackageDetailDTO dto = new TourPackageDetailDTO();
         dto.setPackageid(tourPackage.getPackageid());
         dto.setTitle(tourPackage.getTitle());
@@ -166,10 +112,10 @@ public class PackTourService {
         dto.setBookinghold(tourPackage.getBookinghold());
         dto.setBookingchange(tourPackage.getBookingchange());
         dto.setItineraries(itineraries);
-        dto.setCategoryTours(categoryTours);
-        dto.setThemeTours(themeTours);
-        dto.setDepartureDates(departureDates);
-        dto.setSuitableTours(suitableTours);
+        dto.setCategoryTours(tourPackage.getCategoryTours());
+        dto.setThemeTours(tourPackage.getThemeTours());
+        dto.setDepartureDates(tourPackage.getDepartureDate());
+        dto.setSuitableTours(tourPackage.getSuitableTours());
         return dto;
     }
 

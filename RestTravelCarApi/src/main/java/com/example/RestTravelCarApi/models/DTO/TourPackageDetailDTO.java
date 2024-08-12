@@ -2,6 +2,8 @@ package com.example.RestTravelCarApi.models.DTO;
 
 import java.math.BigDecimal;
 import java.util.List;
+import com.example.RestTravelCarApi.models.Entity.*;
+import com.example.RestTravelCarApi.models.Entity.CategoryTour;
 
 
     
@@ -16,34 +18,46 @@ import java.util.List;
     private String bookinghold;
     private String bookingchange;
     private List<ItineraryDTO> itineraries;
-    private List<TourCategoryTourDTO> categoryTours;
-    private List<ThemeTourDTO> themeTours;
-    private List<TourDepartureDateDTO> departureDates;
-    private List<TourSuitableTourDTO> suitableTours;
+    private List<CategoryTour> categoryTours;
+    private List<ThemeTour> themeTours;
+    private List<DepartureDate> departureDates;
+    private List<SuitableTour> suitableTours;
 
-    public List<TourSuitableTourDTO> getSuitableTours() {
-        return this.suitableTours;
-    }
-
-    public void setSuitableTours(List<TourSuitableTourDTO> suitableTours) {
-        this.suitableTours = suitableTours;
-    }
-
-    public List<ThemeTourDTO> getThemeTours() {
-        return this.themeTours;
-    }
-
-    public void setThemeTours(List<ThemeTourDTO> themeTours) {
-        this.themeTours = themeTours;
-    }
-
-    public List<TourDepartureDateDTO> getDepartureDates() {
+    public List<DepartureDate> getDepartureDates() {
         return this.departureDates;
     }
 
-    public void setDepartureDates(List<TourDepartureDateDTO> departureDates) {
+    public void setDepartureDates(List<DepartureDate> departureDates) {
         this.departureDates = departureDates;
     }
+
+    public List<SuitableTour> getSuitableTours() {
+        return this.suitableTours;
+    }
+
+    public void setSuitableTours(List<SuitableTour> suitableTours) {
+        this.suitableTours = suitableTours;
+    }
+
+    public List<CategoryTour> getCategoryTours() {
+        return this.categoryTours;
+    }
+
+    public void setCategoryTours(List<CategoryTour> categoryTours) {
+        this.categoryTours = categoryTours;
+    }
+
+    public List<ThemeTour> getThemeTours() {
+        return this.themeTours;
+    }
+
+    public void setThemeTours(List<ThemeTour> themeTours) {
+        this.themeTours = themeTours;
+    }
+
+   
+
+    
     
         // Getters and setters
         public int getPackageid() {
@@ -126,13 +140,7 @@ import java.util.List;
             this.itineraries = itineraries;
         }
     
-        public List<TourCategoryTourDTO> getCategoryTours() {
-            return categoryTours;
-        }
-    
-        public void setCategoryTours(List<TourCategoryTourDTO> categoryTours) {
-            this.categoryTours = categoryTours;
-        }
+        
 
        
     }
