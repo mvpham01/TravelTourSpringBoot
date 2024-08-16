@@ -17,7 +17,7 @@ import com.example.RestTravelCarApi.models.Entity.CategoryTour;
     private String deposit;
     private String bookinghold;
     private String bookingchange;
-    private List<ItineraryDTO> itineraries;
+    private List<Itinerary> itineraries;
     private List<CategoryTour> categoryTours;
     private List<ThemeTour> themeTours;
     private List<DepartureDate> departureDates;
@@ -132,11 +132,11 @@ import com.example.RestTravelCarApi.models.Entity.CategoryTour;
             this.bookingchange = bookingchange;
         }
     
-        public List<ItineraryDTO> getItineraries() {
+        public List<Itinerary> getItineraries() {
             return itineraries;
         }
     
-        public void setItineraries(List<ItineraryDTO> itineraries) {
+        public void setItineraries(List<Itinerary> itineraries) {
             this.itineraries = itineraries;
         }
     

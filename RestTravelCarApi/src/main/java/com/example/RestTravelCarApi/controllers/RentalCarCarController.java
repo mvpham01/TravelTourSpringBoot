@@ -5,6 +5,7 @@ import com.example.RestTravelCarApi.models.DTO.RentalDTO;
 import com.example.RestTravelCarApi.models.Entity.Rental;
 import com.example.RestTravelCarApi.service.*;
 import java.util.List;
+import org.springframework.security.core.context.SecurityContextHolder;
 @RestController
 @RequestMapping("/api/rental")
 public class RentalCarCarController {
@@ -17,6 +18,9 @@ public class RentalCarCarController {
     }
     @PostMapping
     public Rental saveRental(@RequestBody RentalDTO rentalDTO) {
+        // if(rentalDTO.getUserId()==0){
+        //     rentalDTO.setUserId(SecurityContextHolder.getContext().getAuthentication(). );
+        // }
         return rentalCarService.saveRental(rentalDTO);
     }
     // @GetMapping("/{id}")

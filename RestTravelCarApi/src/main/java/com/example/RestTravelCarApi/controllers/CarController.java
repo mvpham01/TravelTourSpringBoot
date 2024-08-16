@@ -1,6 +1,8 @@
 package com.example.RestTravelCarApi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.RestTravelCarApi.models.DTO.CarDTO;
@@ -10,6 +12,7 @@ import com.example.RestTravelCarApi.models.Entity.Model;
 import com.example.RestTravelCarApi.models.Entity.Type;
 import com.example.RestTravelCarApi.service.*;
 import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/cars")
@@ -48,6 +51,16 @@ public class CarController {
     //     carService.;
     // }
      
+  @PutMapping
+public ResponseEntity<Car> edit(@RequestBody CarDTO carDTO) {
+    Car updatedCar = carService.updateCar(carDTO);
+    return updatedCar != null ? new ResponseEntity<>(updatedCar, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+}
+@DeleteMapping("/{carId}")
+public ResponseEntity<Void> deleteCar(@PathVariable int carId) {
+    boolean isDeleted = carService.deleteCar(carId);
+    return isDeleted ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+}
     @GetMapping("/model")
     public List<Model> getCarModel() {
         return carService.getAllModel();

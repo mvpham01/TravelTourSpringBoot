@@ -2,6 +2,9 @@ package com.example.RestTravelCarApi.models.DTO;
 
 
 public class CarDTO {
+    private int carId;
+
+   
     private String carName;
     private String modelName;
     private String makeName;
@@ -83,7 +86,13 @@ public class CarDTO {
     public void setStatus(String status) {
         this.status = status;
     }
+    public int getCarId() {
+        return this.carId;
+    }
 
-   
+    public void setCarId(int carId) {
+        this.carId = carId;
+    }
+
  
 }

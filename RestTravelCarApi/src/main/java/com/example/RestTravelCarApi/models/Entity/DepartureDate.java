@@ -1,5 +1,9 @@
 package com.example.RestTravelCarApi.models.Entity;
 
+
+
+import java.sql.Timestamp;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -19,37 +23,16 @@ public class DepartureDate {
         this.departuredateid = departuredateid;
     }
 
-    @Column(name = "departure_date")
-    private String departure_date;
+    @Column(name = "departuredate")
+    private Timestamp departuredate;
 
-    public String getDeparture_date() {
-        return this.departure_date;
+    public Timestamp getDeparturedate() {
+        return this.departuredate;
     }
 
-    public void setDeparture_date(String departure_date) {
-        this.departure_date = departure_date;
+    public void setDeparturedate(Timestamp departuredate) {
+        this.departuredate = departuredate;
     }
 
-    @Column(name = "departure_from")
-    private String departure_from;
-
-    public String getDeparture_from() {
-        return this.departure_from;
-    }
-
-    public void setDeparture_from(String departure_from) {
-        this.departure_from = departure_from;
-    }
-
-    @Column(name = "departure_to")
-    private String departure_to;
-
-    public String getDeparture_to() {
-        return this.departure_to;
-    }
-
-    public void setDeparture_to(String departure_to) {
-        this.departure_to = departure_to;
-    }
-
+   
 }

@@ -130,7 +130,7 @@ public class AuthController {
             }
         }
 
-        user.setRoles(role); // Đặt vai trò duy nhất cho người dùng
+        user.setRoles(role); 
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

@@ -21,7 +21,7 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<ApiResponse<List<User>>> getAllUsers() {
         List<User> users = userService.getAllUsers();
- ApiResponse<List<User>> response = new ApiResponse<>(users, "success", "Users retrieved successfully");
+        ApiResponse<List<User>> response = new ApiResponse<>(users, "success", "Users retrieved successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

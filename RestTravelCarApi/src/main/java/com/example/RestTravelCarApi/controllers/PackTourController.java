@@ -32,7 +32,7 @@ public class PackTourController {
     @GetMapping("/{packageid}")
     // @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public TourPackageDetailDTO getToursByPackageId(@PathVariable int packageid) {
-        return packTourService.getTourPackageByPackageid(packageid);
+        return packTourService.getTourDetailByPackageid(packageid);
     }
 
     @GetMapping("/category")
@@ -44,7 +44,7 @@ public class PackTourController {
         return  packTourService.getAllTourPackagesByCategory(categoryTourName);
     }
 
-     @GetMapping("/theme/{themeTourName}")
+    @GetMapping("/theme/{themeTourName}")
     public List<TourPackage> getToursByThemeTourName(@RequestParam String themeTourName) {
         return packTourService.getToursByThemeTourName(themeTourName);
     }

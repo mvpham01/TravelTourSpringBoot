@@ -8,6 +8,7 @@ import com.example.RestTravelCarApi.models.Entity.User;
 import com.example.RestTravelCarApi.repository.*;
 @Service
 public class UserService {
+    
     @Autowired
     private UserRepository userRepository;
 
